@@ -12,7 +12,10 @@
         <variable
             name="yapilacakIs"
             type="com.example.odev_7_todo.İsler" />
-        
+
+        <variable
+            name="yapilicaklarDetayNesnesi"
+            type="com.example.odev_7_todo.fragment.YapilacakDetayFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,19 +34,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:title="@{YapilacaklarDetayToolbarTitle}" />
-
-        <Button
-            android:id="@+id/buttonGuncelle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="30dp"
-            android:text="Güncelle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
@@ -65,5 +55,19 @@
                 android:text="@{yapilacakIs.is_detay}"
                 android:hint="Yapilacak İş" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/buttonGuncelle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"
+            android:onClick="@{()->yapilicaklarDetayNesnesi.isGuncelle(yapilacakIs.is_id,editTextYapilacakIs.getText().toString())}"
+            android:text="Güncelle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

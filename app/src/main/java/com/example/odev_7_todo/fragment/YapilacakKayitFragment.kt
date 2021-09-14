@@ -27,7 +27,7 @@ class YapilacakKayitFragment : Fragment() {
         return tasarim.root
     }
 
-    fun isKayıt(is_detay:String)
+    fun isKayit(is_detay:String)
     {
 
 

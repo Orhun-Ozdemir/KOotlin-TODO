@@ -20,7 +20,7 @@ class YapilacakDetayFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         tasarim= FragmentYapilacakDetayBinding.inflate(inflater)
-        //tasarim.yapilicaklarDetayNesnesi=this
+        tasarim.yapilicaklarDetayNesnesi=this
         tasarim.yapilacaklarDetayToolbarTitle="Yapılcak İş Detay"
 
         val bundle:YapilacakDetayFragmentArgs by navArgs()
@@ -29,7 +29,7 @@ class YapilacakDetayFragment : Fragment() {
         return tasarim.root
     }
 
-    fun isGüncelle(is_id:Int,is_detay:String)
+    fun isGuncelle(is_id:Int,is_detay:String)
     {
 
 
