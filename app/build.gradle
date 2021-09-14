@@ -12,7 +12,7 @@ android {
             }
     defaultConfig {
         applicationId "com.example.odev_7_todo"
-        minSdk 21
+        minSdk 26
         targetSdk 30
         versionCode 1
         versionName "1.0"
@@ -36,6 +36,7 @@ android {
 }
 
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'kotlin-kapt'
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.6.0'
@@ -51,4 +52,14 @@ dependencies {
     //VİEW MODEL
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.3.0"
     implementation "androidx.activity:activity-ktx:1.2.0"
+    //LİVE DATA
+    implementation "androidx.lifecycle:lifecycle-livedata:2.3.0"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.2.0"
+
+    //Room
+    implementation "androidx.room:room-runtime:2.3.0"
+    kapt "androidx.room:room-compiler:2.3.0"
+    //Coroutine
+    implementation "androidx.room:room-ktx:2.3.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
 }
