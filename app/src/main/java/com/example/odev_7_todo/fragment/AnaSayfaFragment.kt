@@ -15,12 +15,13 @@ import com.example.odev_7_todo.adapter.YapilacakİslerAdapter
 import com.example.odev_7_todo.databinding.FragmentAnaSayfaBinding
 import com.example.odev_7_todo.İsler
 import com.example.odev_7_todo.viewmodel.AnaSayfaFragmentViewModel
+import com.example.odev_7_todo.viewmodelfactory.AnaSayfaFragmentViewModelFactory
 
 
 class AnaSayfaFragment : Fragment(),SearchView.OnQueryTextListener {
 
     private lateinit var tasarim: FragmentAnaSayfaBinding
-    private val viewmodel: AnaSayfaFragmentViewModel by viewModels()
+    private lateinit var viewModel: AnaSayfaFragmentViewModel
     private lateinit var yapilacakIslerAdapter: YapilacakİslerAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,32 +31,37 @@ class AnaSayfaFragment : Fragment(),SearchView.OnQueryTextListener {
         tasarim = FragmentAnaSayfaBinding.inflate(inflater)
 
         tasarim.anaSayfaToolBarTitle = "Yapilacak İşler"
-        tasarim.anaSayfaFragemnt = this
+        tasarim.anaSayfaFragemnt=this
+
 
         (activity as AppCompatActivity).setSupportActionBar(tasarim.toolbar)
 
-        var isler = ArrayList<İsler>()
-        isler.add(İsler(1,"Yapılcak daha çok iş var"))
-        isler.add(İsler(2,"Çok fazla Çok Yapılcak daha çok iş var"))
-        isler.add(İsler(3,"Yapılcak daha çok iş var"))
-        isler.add(İsler(4,"Yapılcak daha çok iş var"))
-        isler.add(İsler(5,"Yapılcak daha çok iş var"))
-        yapilacakIslerAdapter = YapilacakİslerAdapter(requireContext(), isler)
-        tasarim.yapilacakislerAdapter = yapilacakIslerAdapter
+        viewModel.islerListesi.observe(viewLifecycleOwner,{islerListesi->
+
+            yapilacakIslerAdapter= YapilacakİslerAdapter(requireContext(),islerListesi,viewModel)
+            tasarim.yapilacakislerAdapter=yapilacakIslerAdapter
+        })
+
         return tasarim.root
     }
 
 
-    fun kayitSayfasi() {
+    fun kayitSayfasi(v:View) {
 
-        var direction = AnaSayfaFragmentDirections.anaSayfaToKayit();
-        Navigation.findNavController(tasarim.root).navigate(direction)
+        /*var direction = AnaSayfaFragmentDirections.anaSayfaToKayit();
+        Navigation.findNavController(tasarim.root).navigate(direction)*/
+        Navigation.findNavController(v).navigate(R.id.yapilacakKayitFragment)
 
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        val tempviewModel:AnaSayfaFragmentViewModel by viewModels() {
+
+            AnaSayfaFragmentViewModelFactory(requireActivity().application)
+        }
+        viewModel=tempviewModel
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -87,13 +93,19 @@ class AnaSayfaFragment : Fragment(),SearchView.OnQueryTextListener {
 
     override fun onQueryTextSubmit(query: String): Boolean {
         Log.e("Arama tuşa basilinca",query)
+        viewModel.ara(query)
       return true
     }
 
     override fun onQueryTextChange(newText: String): Boolean {
         Log.e("Arama harf girdikce",newText)
+        viewModel.ara(newText)
 
         return true
+    }
+    override fun onResume() {
+        super.onResume()
+        viewModel.isleriYükle()
     }
 }
 

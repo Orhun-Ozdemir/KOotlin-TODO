@@ -7,9 +7,12 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.odev_7_todo.databinding.RecycleviewCardItemBinding
 import com.example.odev_7_todo.fragment.AnaSayfaFragmentDirections
+import com.example.odev_7_todo.viewmodel.AnaSayfaFragmentViewModel
 import com.example.odev_7_todo.İsler
+import com.google.android.material.snackbar.Snackbar
 
-class YapilacakİslerAdapter(var mContext: Context, var dataSet:List<İsler>):RecyclerView.Adapter<YapilacakİslerAdapter.CardViewHolder>(){
+class YapilacakİslerAdapter(var mContext: Context, var dataSet:List<İsler>,var viewModel: AnaSayfaFragmentViewModel)
+    :RecyclerView.Adapter<YapilacakİslerAdapter.CardViewHolder>(){
 
 
 
@@ -18,6 +21,7 @@ class YapilacakİslerAdapter(var mContext: Context, var dataSet:List<İsler>):Re
     inner class CardViewHolder(tasarim:RecycleviewCardItemBinding):RecyclerView.ViewHolder(tasarim.root)
     {
     val tasarim:RecycleviewCardItemBinding
+
         init {
            this.tasarim=tasarim
         }
@@ -32,18 +36,26 @@ class YapilacakİslerAdapter(var mContext: Context, var dataSet:List<İsler>):Re
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int)
     {
+        val isler=dataSet.get(position)
+        val t=holder.tasarim
+        t.yapilacaklar=isler
 
-        holder.tasarim.yapilacaklar=dataSet[position]
+        //holder.tasarim.yapilacaklar=dataSet[position]
 
-        holder.tasarim.cardYapilacakIs.setOnClickListener {
+      t.cardYapilacakIs.setOnClickListener {
 
             val directions=AnaSayfaFragmentDirections.anaSayfaToDetay(dataSet[position])
             Navigation.findNavController(it).navigate(directions)
 
         }
-        holder.tasarim.imageViewDelete.setOnClickListener {
+        t.imageViewDelete.setOnClickListener {
+
+            Snackbar.make(it,"${isler.is_detay}  Silnsin mi", Snackbar.LENGTH_SHORT).setAction("Evet"){
+
+                viewModel.sil(isler)
 
 
+            }.show()
 
 
         }

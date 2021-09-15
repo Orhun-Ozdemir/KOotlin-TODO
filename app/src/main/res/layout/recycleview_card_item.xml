@@ -30,7 +30,7 @@
                     android:id="@+id/textViewYapilacaklar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Yapilacaklar"
+                    android:text="@{yapilacaklar.is_detay}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageViewDelete"
                     app:layout_constraintHorizontal_bias="0.5"

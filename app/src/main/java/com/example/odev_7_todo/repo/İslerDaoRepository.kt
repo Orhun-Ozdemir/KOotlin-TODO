@@ -20,7 +20,7 @@ class İslerDaoRepository(val application: Application) {
         islerListesi = MutableLiveData()
     }
 
-    fun kisileriGetir(): MutableLiveData<List<İsler>> {
+    fun isleriGetir(): MutableLiveData<List<İsler>> {
 
         return islerListesi
     }
@@ -35,7 +35,7 @@ class İslerDaoRepository(val application: Application) {
 
     }
 
-    fun kisiAra(arananKelime: String) {
+    fun isAra(arananKelime: String) {
 
         val job: Job = CoroutineScope(Dispatchers.Main).launch {
             islerListesi.value = vt.islerDao().isAra(arananKelime)
@@ -44,7 +44,7 @@ class İslerDaoRepository(val application: Application) {
 
     }
 
-    fun kisiSil(isler: İsler) {
+    fun isSil(isler: İsler) {
 
         val job: Job = CoroutineScope(Dispatchers.Main).launch {
             vt.islerDao().isSil(isler)
@@ -55,7 +55,7 @@ class İslerDaoRepository(val application: Application) {
 
     }
 
-    fun kisiKayit(isler: İsler) {
+    fun isKayit(isler: İsler) {
 
         val job: Job = CoroutineScope(Dispatchers.Main).launch {
             vt.islerDao().isEkle(isler)
@@ -66,7 +66,7 @@ class İslerDaoRepository(val application: Application) {
 
     }
 
-    fun kisiGuncelle(isler: İsler) {
+    fun isGuncelle(isler: İsler) {
 
         val job: Job = CoroutineScope(Dispatchers.Main).launch {
             vt.islerDao().isGuncelle(isler)
